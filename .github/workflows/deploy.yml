@@ -78,3 +78,6 @@ jobs:
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name cicdTest \
             --s3-location bucket=cicdtestbucket13,bundleType=zip,key=cicdTest-build.zip
+            
+      - name: Run chmod to make gradlew executable
+        run: chmod +x ./gradlew
