@@ -69,7 +69,7 @@ jobs:
         run: |
           aws s3 cp \
             --region ap-northeast-2 \
-            ./cicdTest-build.zip s3://backend-app-bucket    
+            ./cicdTest-build.zip s3://cicdtestbucket13  
 
       # CodeDeploy에 배포 요청
       - name: Code Deploy Deployment Request
@@ -77,8 +77,4 @@ jobs:
           aws deploy create-deployment --application-name cicdTest \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name cicdTest \
-            --s3-location bucket=backend-app-bucket,bundleType=zip,key=cicdTest-build.zip
-
-          SLACK_USERNAME: Notification-Bot
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: always()
+            --s3-location bucket=cicdtestbucket13,bundleType=zip,key=cicdTest-build.zip
