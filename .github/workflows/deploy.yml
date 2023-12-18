@@ -1,4 +1,4 @@
-name: Seniors CICD(deploy)
+name: cicdTest CICD(deploy)
 
 on:
   push:
@@ -62,22 +62,22 @@ jobs:
           cp ./Dockerfile ./deploy/
           cp ./deploy.sh ./deploy/
           cp ./build/libs/*.jar ./deploy/
-          zip -r -qq -j ./seniors-build.zip ./deploy
+          zip -r -qq -j ./cicdTest-build.zip ./deploy
 
       # S3에 zip 파일 업로드
       - name: Upload to S3
         run: |
           aws s3 cp \
             --region ap-northeast-2 \
-            ./seniors-build.zip s3://backend-app-bucket    
+            ./cicdTest-build.zip s3://backend-app-bucket    
 
       # CodeDeploy에 배포 요청
       - name: Code Deploy Deployment Request
         run: |
-          aws deploy create-deployment --application-name seniors \
+          aws deploy create-deployment --application-name cicdTest \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name seniors \
-            --s3-location bucket=backend-app-bucket,bundleType=zip,key=seniors-build.zip
+            --deployment-group-name cicdTest \
+            --s3-location bucket=backend-app-bucket,bundleType=zip,key=cicdTest-build.zip
 
           SLACK_USERNAME: Notification-Bot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
