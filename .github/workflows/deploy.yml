@@ -71,7 +71,7 @@ jobs:
 
     # CodeDelploy에 배포를 요청합니다.
     - name: Code Deploy 배포 요청
-      run: aws deploy create-deployment --application-name cicdTest-application
+      run: aws deploy create-deployment --application-name cicdTest
         --deployment-config-name CodeDeployDefault.OneAtATime
-        --deployment-group-name cicdTest
+        --deployment-group-name cicd-test
         --s3-location bucket=cicdtestbucket13,bundleType=zip,key=cicdTest-build.zip
